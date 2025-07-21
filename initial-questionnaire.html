@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Initial Questionnaire</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 40px;
+      max-width: 600px;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+<h1>Tell us about your concerns</h1>
+<p>We want to give you information that matters to you. Please check any concerns you have:</p>
+
+<form id="concernForm">
+  <label>
+    <input type="checkbox" name="sideEffects" />
+    I'm concerned about vaccine side effects.
+  </label>
+
+  <label>
+    <input type="checkbox" name="trust" />
+    I’m not sure I trust how quickly the vaccine was developed.
+  </label>
+
+  <label>
+    <input type="checkbox" name="necessity" />
+    I’m not convinced that healthy people really need the vaccine.
+  </label>
+
+  <button type="submit">Continue</button>
+</form>
+
+<script>
+  const form = document.getElementById("concernForm");
+
+  form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const concerns = {
+      sideEffects: form.sideEffects.checked,
+      trust: form.trust.checked,
+      necessity: form.necessity.checked
+    };
+
+    localStorage.setItem("userConcerns", JSON.stringify(concerns));
+    window.location.href = "modules.html"; // redirect to dynamic content page
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Vaccine Information</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 40px;
+      max-width: 700px;
+    }
+    .module {
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
+    .module h2 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+<h1>Here’s Information Based on Your Concerns</h1>
+<div id="content"></div>
+
+<script>
+  const modules = {
+    sideEffects: {
+      title: "Concern about Side Effects",
+      content: "It's normal to wonder about side effects. Most vaccine side effects are mild and short-lived, like soreness at the injection site or a low-grade fever. Serious side effects are very rare, and safety monitoring is ongoing even after approval."
+    },
+    trust: {
+      title: "Concern about Vaccine Development Speed",
+      content: "COVID-19 vaccines were developed quickly, but not by cutting corners. Decades of prior research, large-scale funding, and global collaboration made fast progress possible while maintaining strict safety protocols."
+    },
+    necessity: {
+      title: "Uncertainty about Needing the Vaccine",
+      content: "Even healthy people can catch and spread the virus. Getting vaccinated helps protect you and reduces transmission, especially to those who are vulnerable or cannot be vaccinated themselves."
+    }
+  };
+
+  const concerns = JSON.parse(localStorage.getItem("userConcerns") || "{}");
+  const contentDiv = document.getElementById("content");
+
+  let anyShown = false;
+
+  for (const key in modules) {
+    if (concerns[key]) {
+      const section = document.createElement("div");
+      section.className = "module";
+      section.innerHTML = `<h2>${modules[key].title}</h2><p>${modules[key].content}</p>`;
+      contentDiv.appendChild(section);
+      anyShown = true;
+    }
+  }
+
+  if (!anyShown) {
+    contentDiv.innerHTML = "<p>You didn't select any concerns. If you'd like to explore anyway, you can go back and choose some topics!</p>";
+  }
+</script>
+</body>
+</html>
